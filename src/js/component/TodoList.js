@@ -2,43 +2,105 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 const TodoList = () => {
-    const [tasks, setTasks] = useState(["New task"]);
-    
-    	const fetchTodo = () => {
+	const [tasks, setTasks] = useState(["New task"]);
+	const [input, setInput] = useState("");
 
-    //  fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont")
-		// .then(response => response.json())
-		// .then(todos => console.log(todos))
-        // .catch(error => console.log(error));
-            
+	//CREATE LIST//
+
+	const createUser = () => {
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont", {
-			method: "PUT",
-			body: JSON.stringify(""),
+			method: "POST",
+			body: JSON.stringify([]),
 			headers: {
 				"Content-Type": "application/json"
 			}
 		})
 			.then(resp => {
-				console.log(resp.ok); // will be true if the response is successfull
-				console.log(resp.status); // the status code = 200 or code = 400 etc.
-				console.log(resp.text()); // will try return the exact result as string
-				return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+				console.log(resp.ok);
+				console.log(resp.status);
+				console.log(resp.text());
+				return resp.json();
 			})
-			.then(data => {
-				//here is were your code should start after the fetch finishes
-				console.log(data); //this will print on the console the exact object received from the server
-			})
+			.then(response => console.log(response))
+			.then(() => getList())
 			.catch(error => {
-				//error handling
 				console.log(error);
 			});
-    };
-    
-    
+	};
 
-	useEffect(() => {
-		fetchTodo();
-	}, []);
+	//GET LIST//
+
+	const getList = () => {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(response => {
+				console.log(response.ok);
+				console.error(response.status);
+				return response.json();
+			})
+			.then(data => {
+				setTasks(data);
+				console.log(data);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	};
+
+	//UPDATE LIST//
+
+	const updateList = () => {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont", {
+			method: "PUT",
+			body: JSON.stringify(tasks),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				console.log(resp.ok);
+				console.log(resp.status);
+				console.log(resp.text());
+				return resp.json();
+			})
+			.then(response => {
+				setInput("");
+				console.log(response);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	};
+
+	//DELETE LIST//
+
+	const deleteList = () => {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont", {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				console.log(resp.ok);
+				console.log(resp.status);
+				console.log(resp.text());
+				return resp.json();
+			})
+			.then(response => console.log(response))
+			.then(() => setTasks([]))
+			.then(() => createUser())
+			.then(data => {
+				console.log(data);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	};
 
 	const inputRef = useRef(null);
 
@@ -51,7 +113,7 @@ const TodoList = () => {
 			<li
 				className="d-flex justify-content-between hover list-group-item m-2 multi-bg"
 				key={i}>
-				{item}
+				{item.label === "sample task" ? setTasks([]) : item.label}
 				<button
 					className="bg-transparent border-0 text-white"
 					onClick={() => removeTask(i)}>
@@ -63,17 +125,23 @@ const TodoList = () => {
 
 	let newTask = event => {
 		if (event.keyCode === 13) {
-			let userInput = event.target.value;
-			const newTaskList = [...tasks, userInput];
-			setTasks(newTaskList);
-			event.target.value = "";
+			let userInput = { label: input, done: false };
+			tasks.splice(tasks.length, 0, userInput);
+			setTasks([...tasks]);
+			setInput("");
+			updateList();
 		}
 	};
 
 	const removeTask = index => {
-		const removeArr = tasks.filter((item, i) => i != index);
-		setTasks(removeArr);
+		tasks.splice(index, 1);
+		setTasks([...tasks]);
+		tasks.length > 0 ? updateList() : deleteList();
 	};
+
+	useEffect(() => {
+		tasks.length > 0 ? getList() : createUser();
+	}, []);
 
 	return (
 		<div className="listBody mx-auto mt-4">
@@ -83,13 +151,21 @@ const TodoList = () => {
 				type="text"
 				id="fname"
 				name="fname"
+				onChange={e => setInput(e.target.value)}
+				value={input}
 				placeholder="Add your task..."
 				onKeyDown={newTask}
 				ref={inputRef}
 			/>
 			<ul className="list-group py-2"> {makeList}</ul>
-			<p className="bg-dark border-round pl-2">
+			<p className="bg-dark border-round pl-2 d-flex justify-content-between">
 				{tasks.length} Items left
+				<button
+					type="button"
+					className="btn bg-transparent text-white"
+					onClick={deleteList}>
+					<i className="fas fa-minus-circle"></i>
+				</button>
 			</p>
 		</div>
 	);
