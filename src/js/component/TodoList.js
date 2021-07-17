@@ -3,7 +3,7 @@ import { getList, updateList, createList, deleteList } from "./api";
 import PropTypes from "prop-types";
 
 const TodoList = () => {
-	const [tasks, setTasks] = useState(["New task"]);
+	const [tasks, setTasks] = useState([]);
 	const [input, setInput] = useState("");
 
 	const inputRef = useRef(null);
@@ -45,7 +45,9 @@ const TodoList = () => {
 					setInput("");
 					console.log(response);
 			  })
-			: deleteList().then(() => setTasks([]));
+			: deleteList().then(() =>
+					setTasks([{ label: "sample task", done: false }])
+			  );
 	};
 
 	useEffect(() => {
