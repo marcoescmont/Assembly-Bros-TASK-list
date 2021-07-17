@@ -1,106 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+import { getList, updateList, createList, deleteList } from "./api";
 import PropTypes from "prop-types";
 
 const TodoList = () => {
 	const [tasks, setTasks] = useState(["New task"]);
 	const [input, setInput] = useState("");
-
-	//CREATE LIST//
-
-	const createUser = () => {
-		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont", {
-			method: "POST",
-			body: JSON.stringify([]),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(resp => {
-				console.log(resp.ok);
-				console.log(resp.status);
-				console.log(resp.text());
-				return resp.json();
-			})
-			.then(response => console.log(response))
-			.then(() => getList())
-			.catch(error => {
-				console.log(error);
-			});
-	};
-
-	//GET LIST//
-
-	const getList = () => {
-		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(response => {
-				console.log(response.ok);
-				console.error(response.status);
-				return response.json();
-			})
-			.then(data => {
-				setTasks(data);
-				console.log(data);
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	};
-
-	//UPDATE LIST//
-
-	const updateList = () => {
-		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont", {
-			method: "PUT",
-			body: JSON.stringify(tasks),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(resp => {
-				console.log(resp.ok);
-				console.log(resp.status);
-				console.log(resp.text());
-				return resp.json();
-			})
-			.then(response => {
-				setInput("");
-				console.log(response);
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	};
-
-	//DELETE LIST//
-
-	const deleteList = () => {
-		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcoescmont", {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(resp => {
-				console.log(resp.ok);
-				console.log(resp.status);
-				console.log(resp.text());
-				return resp.json();
-			})
-			.then(response => console.log(response))
-			.then(() => setTasks([]))
-			.then(() => createUser())
-			.then(data => {
-				console.log(data);
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	};
 
 	const inputRef = useRef(null);
 
@@ -129,18 +33,29 @@ const TodoList = () => {
 			tasks.splice(tasks.length, 0, userInput);
 			setTasks([...tasks]);
 			setInput("");
-			updateList();
+			updateList(tasks);
 		}
 	};
 
 	const removeTask = index => {
 		tasks.splice(index, 1);
 		setTasks([...tasks]);
-		tasks.length > 0 ? updateList() : deleteList();
+		tasks.length > 0
+			? updateList(tasks).then(response => {
+					setInput("");
+					console.log(response);
+			  })
+			: deleteList().then(() => setTasks([]));
 	};
 
 	useEffect(() => {
-		tasks.length > 0 ? getList() : createUser();
+		getList("marcoescmont").then(data => {
+			return data === null
+				? createList().then(data => {
+						setTasks(data);
+				  })
+				: setTasks(data);
+		});
 	}, []);
 
 	return (
