@@ -1,15 +1,12 @@
 //GET LIST//
-
+let setURL = "https://3245-fuchsia-porcupine-sovyu35g.ws-us14.gitpod.io/";
 export const getList = userName => {
-	return fetch(
-		`https://3245-fuchsia-porcupine-sovyu35g.ws-us14.gitpod.io/${userName}`,
-		{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json"
-			}
+	return fetch(`${setURL}${userName}`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
 		}
-	).then(response => {
+	}).then(response => {
 		console.log(response.ok);
 		console.error(response.status);
 		return response.status === 200 ? response.json() : null;
@@ -19,16 +16,13 @@ export const getList = userName => {
 //CREATE LIST//
 
 export const createList = () => {
-	return fetch(
-		"https://3245-fuchsia-porcupine-sovyu35g.ws-us14.gitpod.io/marcoescmont",
-		{
-			method: "POST",
-			body: JSON.stringify([]),
-			headers: {
-				"Content-Type": "application/json"
-			}
+	return fetch(`${setURL}marcoescmont`, {
+		method: "POST",
+		body: JSON.stringify([]),
+		headers: {
+			"Content-Type": "application/json"
 		}
-	)
+	})
 		.then(resp => {
 			console.log(resp.ok);
 			console.log(resp.status);
@@ -45,16 +39,13 @@ export const createList = () => {
 //UPDATE LIST//
 
 export const updateList = tasks => {
-	return fetch(
-		"https://3245-fuchsia-porcupine-sovyu35g.ws-us14.gitpod.io/marcoescmont",
-		{
-			method: "PUT",
-			body: JSON.stringify(tasks),
-			headers: {
-				"Content-Type": "application/json"
-			}
+	return fetch(`${setURL}marcoescmont`, {
+		method: "PUT",
+		body: JSON.stringify(tasks),
+		headers: {
+			"Content-Type": "application/json"
 		}
-	)
+	})
 		.then(resp => {
 			console.log(resp.ok);
 			console.log(resp.status);
@@ -70,15 +61,12 @@ export const updateList = tasks => {
 //DELETE LIST//
 
 export const deleteList = () => {
-	return fetch(
-		"https://3245-fuchsia-porcupine-sovyu35g.ws-us14.gitpod.io/marcoescmont",
-		{
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json"
-			}
+	return fetch(`${setURL}marcoescmont`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json"
 		}
-	)
+	})
 		.then(resp => {
 			console.log(resp.ok);
 			console.log(resp.status);
