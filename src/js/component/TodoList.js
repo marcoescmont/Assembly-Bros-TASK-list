@@ -40,14 +40,15 @@ const TodoList = () => {
 	const removeTask = index => {
 		tasks.splice(index, 1);
 		setTasks([...tasks]);
-		tasks.length > 0
-			? updateList(tasks).then(response => {
-					setInput("");
-					console.log(response);
-			  })
-			: deleteList().then(() =>
-					setTasks([{ label: "sample task", done: false }])
-			  );
+		// tasks.length > 0
+		// ?
+		updateList(tasks).then(response => {
+			setInput("");
+			console.log(response);
+		});
+		// : deleteList().then(() =>
+		// 		setTasks([{ label: "sample task", done: false }])
+		//   );
 	};
 
 	useEffect(() => {
