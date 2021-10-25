@@ -1,5 +1,5 @@
 //GET LIST//
-let setURL = "https://3000-teal-vole-0ub8910j.ws-us17.gitpod.io/";
+let setURL = "https://3001-fuchsia-jaguar-5r7u6l9u.ws-us17.gitpod.io/api/";
 export const getList = userName => {
 	return fetch(`${setURL}${userName}`, {
 		method: "GET",
