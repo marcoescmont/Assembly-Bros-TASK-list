@@ -1,41 +1,12 @@
-# Hello World with React boilerplate
-<p>
-  <a href="https://gitpod.io#https://github.com/4GeeksAcademy/react-hello.git"><img src="https://raw.githubusercontent.com/4GeeksAcademy/react-hello/master/open-in-gitpod.svg?sanitize=true" />
-  </a>
-</p>
+# <img alt = "AB Logo" width="50px" height="50px" src="https://user-images.githubusercontent.com/81428361/137529012-6cca611a-b432-4852-bd09-67cd4aecf70c.png"/> Assembly Bros TASK list
 
-This template is similar to create-react-app but it's meant for 4Geeks Academy students.
+## App directed to inform the staff at Assembly Bros about daily services that need to be provided to clients and update the status to keep a record of each task.
 
-##### Download the boilerplate using git
-
-```
-$ git clone https://github.com/4GeeksAcademy/react-hello.git
-$ cd react-hello
-```
-
-##### and install the npm package:
-```
-$ npm install
-```
-
-## Start coding!
-
-For Windows, Mac, Linux or Gitpod, start the webpack server with live reload:
-- `$ npm run start`
-
-You can update the `styles/index.scss` or `js/index.js` depending on your needs.
-Add more files into your, `./src/js/components` or styles folder as you need them.
-
-## Publish your website!
-
-This boilerplate is 100% compatible with the free [github pages](https://pages.github.com/) and [vercel](https://vercel.com/) hosting.
-
-It takes just 2 minutes to deploy, [click here to start the process](https://github.com/4GeeksAcademy/react-hello/blob/master/docs/DEPLOY.md).
-
-## Other features
-
-- Automatic Code Formatting: Use of [Prettier](https://prettier.io/) for automatic code indentation and formatting.
-- Error reporting: Use of [eslint](https://eslint.org/) for better error reporting.
-- Hot Deploy: Use of [Webpack Development Server](https://webpack.js.org/configuration/dev-server/) for hot deploy and live reload.
-- One-command publish of the code to github pages with `npm run deploy:github`.
-- Babel 7 (really fast).
+## Languages and libraries used on this project:
+<ul>
+  <li><h3>React.js.</h3></li>
+  <li><h3>JS.</h3></li>
+  <li><h3>HTML5.</h3></li>
+  <li><h3>CSS3.</h3></li>
+  <li><h3>Rest API.</h3></li>
+</ul>
