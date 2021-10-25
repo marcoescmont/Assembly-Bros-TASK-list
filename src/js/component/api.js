@@ -1,5 +1,5 @@
 //GET LIST//
-let setURL = "https://3001-fuchsia-jaguar-5r7u6l9u.ws-us17.gitpod.io/api/";
+let setURL = "https://assembly-bros-task-list-api.herokuapp.com/api/";
 export const getList = userName => {
 	return fetch(`${setURL}${userName}`, {
 		method: "GET",
