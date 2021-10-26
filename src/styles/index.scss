@@ -6,59 +6,37 @@
     opacity: 0.5;
 }
 
-body {
+nav {
     background: linear-gradient(
-        90deg,
-            rgb(82, 24, 24) 0%,
-            rgb(143, 0, 0) 100%
+        45deg,
+            rgb(143, 0, 0) 0%,
+            rgb(0, 143, 24) 100%
     ),
 }
 
 .listBody{
     width: 400px;
-    background: black;
+    background: linear-gradient(
+        45deg,
+            rgb(143, 0, 0) 0%,
+            rgb(0, 143, 24) 100%
+    );
     color: white;
     border-radius: 10px;
 }
 
 .black-bg {
-    background: black;
+    background: transparent;
 }
 
 .multi-bg:nth-child(4n+1) {
     border: none;
-    background: linear-gradient(
-        90deg,
-            red 0%,
-            blue 100%
-    ),
+    background: rgb(143, 0, 0)
 }
 
 .multi-bg:nth-child(4n+2) {
     border: none;
-    background: linear-gradient(
-        90deg,
-            rgb(20, 70, 27) 0%,
-            rgb(215, 255, 72) 100%
-    ),
-}
-
-.multi-bg:nth-child(4n+3) {
-    border: none;
-    background: linear-gradient(
-        90deg,
-            rgb(76, 0, 197) 0%,
-            rgb(146, 0, 68) 100%
-    ),
-}
-
-.multi-bg:nth-child(4n+4) {
-    border: none;
-    background: linear-gradient(
-        90deg,
-            rgb(0, 217, 255) 0%,
-            rgb(0, 89, 255) 100%
-    ),
+    background: rgb(0, 143, 24)
 }
 
 .border-round {
